@@ -1,0 +1,989 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>سكاي موبايل</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="shortcut icon" href="https://graphicsfamily.com/wp-content/uploads/edd/2021/12/Tech-Logo-scaled.jpg" type="image/x-icon">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@300;400;500;600;700&display=swap">
+<style>
+/* Layout: Apple-style storefront. Dark nav, dark hero, light/dark alternating bands, tall product tiles, sticky rotating phone, filterable catalog. */
+@property --c { syntax: '<color>'; inherits: true; initial-value: #888888; }
+:root{
+  --bg:#fbfbfd; --bg2:#f5f5f7; --card:#ffffff; --fg:#1d1d1f; --muted:#6e6e73; --line:rgba(0,0,0,.12);
+  --accent:#0071e3; --accent-h:#0a84ff; --on-accent:#ffffff; --sale:#d70015;
+  --warm1:#ff9f0a; --warm2:#ff375f;
+  --font-d:'Readex Pro','IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;
+  --font-b:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;
+  --ease:cubic-bezier(.22,.8,.2,1);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#000000;--bg2:#101012;--card:#1c1c1e;--fg:#f5f5f7;--muted:#a1a1a6;--line:rgba(255,255,255,.16);--accent:#2997ff;--accent-h:#47a6ff;--sale:#ff453a;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#000000;--bg2:#101012;--card:#1c1c1e;--fg:#f5f5f7;--muted:#a1a1a6;--line:rgba(255,255,255,.16);--accent:#2997ff;--accent-h:#47a6ff;--sale:#ff453a;color-scheme:dark}
+.panel-dark{--bg:#000000;--bg2:#101012;--card:#1c1c1e;--fg:#f5f5f7;--muted:#a1a1a6;--line:rgba(255,255,255,.16);--accent:#2997ff;--accent-h:#47a6ff;--sale:#ff453a;background:var(--bg);color:var(--fg)}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-b);font-size:17px;line-height:1.7;direction:rtl;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#161617;z-index:60}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--accent);text-decoration:none}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1200px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sec{padding-block:clamp(64px,9vw,112px)}
+.eyebrow{font-family:var(--font-d);font-weight:500;font-size:15px;color:var(--muted)}
+h2.t{font-family:var(--font-d);font-weight:600;font-size:clamp(30px,5vw,54px);line-height:1.25;text-wrap:balance}
+.lead{color:var(--muted);font-size:clamp(17px,2vw,21px);max-width:60ch}
+.num{font-variant-numeric:tabular-nums;font-family:var(--font-d)}
+
+/* progress + nav */
+#bar{position:fixed;top:env(safe-area-inset-top,0px);right:0;left:0;height:3px;z-index:70;background:linear-gradient(90deg,var(--warm2),var(--warm1));transform:scaleX(0);transform-origin:100% 0}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(22,22,23,.78);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);color:#f5f5f7;border-bottom:1px solid rgba(255,255,255,.08)}
+.nav .wrap{display:flex;align-items:center;gap:clamp(12px,3vw,32px);height:52px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-weight:600;font-size:18px;color:#f5f5f7;background:none;border:0;padding:0}
+.logo svg{width:20px;height:20px}
+.links{display:flex;gap:clamp(12px,2.4vw,28px);margin-inline-end:auto;margin-inline-start:12px}
+.links button{background:none;border:0;padding:6px 2px;font-size:14px;color:rgba(245,245,247,.8);transition:color .2s}
+.links button:hover{color:#fff}
+.cartbtn{position:relative;background:none;border:0;width:40px;height:40px;display:grid;place-items:center;color:#f5f5f7;border-radius:50%;transition:background .2s}
+.cartbtn:hover{background:rgba(255,255,255,.1)}
+.cartbtn svg{width:22px;height:22px}
+.cartbtn .cnt{position:absolute;top:2px;left:0;min-width:18px;height:18px;border-radius:9px;background:var(--warm2);color:#fff;font:600 11px/18px var(--font-d);text-align:center;padding:0 5px;transform:scale(0);transition:transform .35s var(--ease)}
+.cartbtn .cnt.show{transform:scale(1)}
+.cartbtn.bump{animation:bump .5s var(--ease)}
+@keyframes bump{30%{transform:scale(1.25)}60%{transform:scale(.92)}}
+@media(max-width:700px){.links button:not(.keep){display:none}}
+
+/* buttons */
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--on-accent);border:0;border-radius:980px;padding:12px 26px;font-weight:500;font-size:17px;transition:transform .25s var(--ease),background .2s,box-shadow .3s}
+.btn-p:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 10px 24px -8px var(--accent)}
+.btn-p:active{transform:scale(.97)}
+.btn-l{background:none;border:0;color:var(--accent);font-size:17px;padding:12px 6px;display:inline-flex;gap:6px;align-items:center}
+.btn-l:hover{text-decoration:underline}
+.btn-sm{background:var(--accent);color:var(--on-accent);border:0;border-radius:980px;padding:8px 16px;font-size:14px;font-weight:500;white-space:nowrap;transition:transform .2s var(--ease),background .2s}
+.btn-sm:hover{background:var(--accent-h)}
+.btn-sm:active{transform:scale(.94)}
+.btn-o{background:none;border:1px solid var(--accent);color:var(--accent);border-radius:980px;padding:11px 24px;font-size:16px;transition:background .2s,color .2s}
+.btn-o:hover{background:var(--accent);color:var(--on-accent)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-top:clamp(48px,8vw,88px);text-align:center;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(50% 42% at 50% 78%,rgba(255,159,10,.26),transparent 70%),radial-gradient(40% 36% at 18% 70%,rgba(41,151,255,.2),transparent 70%),radial-gradient(40% 36% at 84% 66%,rgba(255,55,95,.16),transparent 70%)}
+.hero .eyebrow{color:var(--warm1);animation:rise .9s var(--ease) both}
+.hero h1{font-family:var(--font-d);font-weight:700;font-size:clamp(40px,8.4vw,92px);line-height:1.18;margin-top:10px;text-wrap:balance;animation:rise .9s .1s var(--ease) both}
+.grad{background:linear-gradient(100deg,var(--warm1),var(--warm2),var(--warm1));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 6s linear infinite}
+@keyframes shimmer{to{background-position:-200% 0}}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.hero p.lead{margin:18px auto 0;animation:rise .9s .2s var(--ease) both}
+.hero .cta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;margin-top:26px;animation:rise .9s .3s var(--ease) both}
+.stats{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 34px;margin-top:30px;animation:rise .9s .4s var(--ease) both}
+.stats div{font-size:15px;color:var(--muted)}
+.stats b{font-family:var(--font-d);font-size:26px;font-weight:600;color:var(--fg);margin-inline-start:6px}
+.hero-stage{display:flex;justify-content:center;align-items:flex-end;gap:clamp(0px,2vw,28px);margin-top:44px;margin-bottom:calc(-1 * clamp(70px,10vw,150px));direction:ltr;perspective:1500px;transform:translateY(var(--py,0px)) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+.hp{animation:rise 1.1s .5s var(--ease) both}
+.hp .pv{animation:floaty 7s ease-in-out infinite}
+.hp-l{--ps:clamp(5.6px,1.3vw,10px);transform:rotate(-7deg) translateY(36px)}
+.hp-r{--ps:clamp(5.6px,1.3vw,10px);transform:rotate(7deg) translateY(36px)}
+.hp-c{--ps:clamp(7.4px,1.75vw,13px);z-index:2}
+.hp-l .pv{animation-delay:-2s}.hp-r .pv{animation-delay:-4s}
+@keyframes floaty{50%{transform:translateY(-14px)}}
+
+/* phone drawing: everything in em, so --ps scales it */
+.pv{font-size:var(--ps,6px);width:22em;height:45em;flex:none}
+.phone{position:relative;width:22em;height:45em;border-radius:3.6em;background:var(--c);direction:ltr;transition:--c .5s;box-shadow:inset 0 0 0 .22em rgba(255,255,255,.28),inset 0 0 2.4em rgba(0,0,0,.18),0 2.6em 4.4em -1.6em rgba(0,0,0,.55)}
+.phone::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(120deg,rgba(255,255,255,.38),rgba(255,255,255,0) 38%,rgba(0,0,0,.22));pointer-events:none;z-index:3}
+.phone .btn{position:absolute;inset:0;pointer-events:none}
+.phone .btn::before,.phone .btn::after{content:"";position:absolute;width:.35em;border-radius:.2em;background:var(--c);filter:brightness(.7)}
+.phone .btn::before{right:-.3em;top:11em;height:6.5em}
+.phone .btn::after{left:-.3em;top:9em;height:9em}
+.cam{position:absolute}
+.cam b{position:absolute;width:3.6em;height:3.6em;border-radius:50%;background:radial-gradient(circle at 35% 30%,#556070 0,#0b0d12 58%);box-shadow:0 0 0 .35em rgba(0,0,0,.38),inset 0 0 0 .2em rgba(255,255,255,.14)}
+.cam em{position:absolute;width:1em;height:1em;border-radius:50%;background:#f6e7b6}
+.cam-tri .cam{left:1.6em;top:1.6em;width:10em;height:10em;border-radius:2.6em;background:rgba(0,0,0,.2);box-shadow:inset 0 0 0 .2em rgba(255,255,255,.18)}
+.cam-tri .cam b:nth-of-type(1){left:.9em;top:.9em}.cam-tri .cam b:nth-of-type(2){left:.9em;bottom:.9em}.cam-tri .cam b:nth-of-type(3){right:.9em;top:3.2em}
+.cam-tri .cam em{right:1.5em;top:1.2em}
+.cam-dual .cam{left:1.6em;top:1.6em;width:5.6em;height:10em;border-radius:2.8em;background:rgba(0,0,0,.2);box-shadow:inset 0 0 0 .2em rgba(255,255,255,.16)}
+.cam-dual .cam b:nth-of-type(1){left:1em;top:.9em}.cam-dual .cam b:nth-of-type(2){left:1em;bottom:.9em}.cam-dual .cam b:nth-of-type(3){display:none}
+.cam-dual .cam em{display:none}
+.cam-dots .cam{inset:0}
+.cam-dots .cam b:nth-of-type(1){left:2.4em;top:2.2em}.cam-dots .cam b:nth-of-type(2){left:2.4em;top:7.2em}.cam-dots .cam b:nth-of-type(3){left:2.4em;top:12.2em}
+.cam-dots .cam em{left:7.6em;top:3.4em}
+.cam-pill .cam{left:0;right:0;top:5.6em;height:8em;background:rgba(0,0,0,.3);box-shadow:inset 0 .2em 0 rgba(255,255,255,.12)}
+.cam-pill .cam b:nth-of-type(1){left:3em;top:2.2em}.cam-pill .cam b:nth-of-type(2){left:8.4em;top:2.2em}.cam-pill .cam b:nth-of-type(3){left:13.8em;top:2.2em}
+.cam-pill .cam em{right:1.6em;top:3.4em}
+.cam-sq .cam{left:1.6em;top:1.6em;width:10.4em;height:10.4em;border-radius:2.2em;background:rgba(0,0,0,.36);box-shadow:inset 0 0 0 .2em rgba(255,255,255,.14)}
+.cam-sq .cam b:nth-of-type(1){left:1em;top:1em}.cam-sq .cam b:nth-of-type(2){left:1em;bottom:1em}.cam-sq .cam b:nth-of-type(3){right:1em;top:1em}
+.cam-sq .cam em{right:2.4em;bottom:2.4em}
+.cam-circle .cam{left:50%;top:2.6em;width:12em;height:12em;margin-left:-6em;border-radius:50%;background:rgba(0,0,0,.34);box-shadow:inset 0 0 0 .25em rgba(255,255,255,.2),0 0 0 .3em rgba(0,0,0,.14)}
+.cam-circle .cam b:nth-of-type(1){left:4.2em;top:1.2em}.cam-circle .cam b:nth-of-type(2){left:1.3em;bottom:2.6em}.cam-circle .cam b:nth-of-type(3){right:1.3em;bottom:2.6em}
+.cam-circle .cam em{left:5.5em;bottom:1em}
+.cam-flip .cam{left:1.6em;right:1.6em;top:1.6em;height:6.6em;border-radius:1.8em;background:#0b0c10;box-shadow:inset 0 0 0 .2em rgba(255,255,255,.12)}
+.cam-flip .cam b:nth-of-type(1){right:.9em;top:1.4em}.cam-flip .cam b:nth-of-type(2){right:5.2em;top:1.4em}.cam-flip .cam b:nth-of-type(3){display:none}.cam-flip .cam em{display:none}
+.cam-flip::after{content:"";position:absolute;left:0;right:0;top:50%;height:.5em;background:linear-gradient(rgba(0,0,0,.34),rgba(255,255,255,.14));z-index:2}
+.phone.basic{width:18em;height:37em;border-radius:2.6em 2.6em 4em 4em;margin-inline:2em}
+.phone.basic .lcd{position:absolute;left:2em;right:2em;top:3.4em;height:10em;border-radius:1em;background:linear-gradient(#a9c2a4,#86a182);box-shadow:inset 0 0 0 .45em #0e0f12}
+.phone.basic .keys{position:absolute;left:2.2em;right:2.2em;bottom:3em;display:grid;grid-template-columns:repeat(3,1fr);gap:.9em}
+.phone.basic .keys i{height:2.4em;border-radius:1.2em;background:rgba(0,0,0,.28);box-shadow:inset 0 .15em 0 rgba(255,255,255,.22)}
+.pv.basicwrap{width:18em;height:37em}
+.phone.front{background:#050506;padding:.8em;box-shadow:inset 0 0 0 .22em rgba(255,255,255,.22),0 2.6em 4.4em -1.6em rgba(0,0,0,.55)}
+.phone.front .scr{position:relative;width:100%;height:100%;border-radius:2.9em;overflow:hidden;background:radial-gradient(90% 60% at 20% 12%,var(--c) 0,transparent 66%),radial-gradient(80% 60% at 92% 92%,color-mix(in srgb,var(--c) 60%,#ffffff) 0,transparent 62%),#0d0d12;color:#fff;text-align:center;font-family:var(--font-d)}
+.phone.front .isl{position:absolute;left:50%;top:1.2em;width:6.6em;height:2em;margin-left:-3.3em;border-radius:1em;background:#000}
+.phone.front .dt{padding-top:6.2em;font-size:1.5em;opacity:.9;font-family:var(--font-b)}
+.phone.front .clk{font-size:7.4em;font-weight:600;line-height:1.1}
+.phone.front .home{position:absolute;left:50%;bottom:1em;width:7em;height:.36em;margin-left:-3.5em;border-radius:.2em;background:rgba(255,255,255,.7)}
+
+/* marquee */
+.brands{background:var(--bg2);padding-block:clamp(44px,6vw,72px);overflow:hidden}
+.brands .eyebrow{text-align:center;margin-bottom:22px}
+.mq{display:flex;direction:ltr;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.mq+.mq{margin-top:10px}
+.mq-track{display:flex;flex:none;gap:clamp(28px,5vw,64px);padding-inline:clamp(14px,2.5vw,32px);animation:mq 48s linear infinite}
+.mq.rev .mq-track{animation-direction:reverse;animation-duration:58s}
+.mq:hover .mq-track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-100%)}}
+.mq button{background:none;border:0;font-family:var(--font-d);font-weight:600;font-size:clamp(26px,4.6vw,52px);color:var(--muted);opacity:.6;padding:0;white-space:nowrap;transition:color .25s,opacity .25s,transform .3s var(--ease)}
+.mq button:hover{color:var(--fg);opacity:1;transform:scale(1.06)}
+
+/* tiles */
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px 20px;margin-bottom:clamp(24px,4vw,40px)}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tile{position:relative;overflow:hidden;border-radius:28px;min-height:clamp(520px,60vw,680px);padding:clamp(32px,4vw,52px) 24px 0;text-align:center;display:flex;flex-direction:column;align-items:center;background:var(--bg2);color:var(--fg);isolation:isolate}
+.tile.panel-dark{background:#000}
+.tile .tag{font-family:var(--font-d);font-size:14px;font-weight:500;color:var(--warm1)}
+.tile h3{font-family:var(--font-d);font-weight:600;font-size:clamp(28px,3.6vw,44px);line-height:1.25;margin-top:2px}
+.tile p.sub{color:var(--muted);font-size:clamp(16px,1.7vw,20px);margin-top:4px;max-width:34ch}
+.tile .price{margin-top:6px;font-size:16px}
+.tile .acts{display:flex;gap:6px 14px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.tile .tp{margin-top:auto;padding-top:24px;--ps:clamp(7px,1.15vw,10.4px);transform:translateY(13%);transition:transform .8s var(--ease)}
+.tile:hover .tp{transform:translateY(5%) scale(1.04) rotate(-2deg)}
+.tile::after{content:"";position:absolute;inset:auto 0 0 0;height:55%;z-index:-1;background:radial-gradient(60% 70% at 50% 100%,var(--glow),transparent 70%);opacity:.45}
+@media(max-width:820px){.tiles{grid-template-columns:1fr}.tile .tp{--ps:9px}}
+
+/* sticky showcase */
+.show{position:relative;height:320vh}
+.show-in{position:sticky;top:calc(52px + env(safe-area-inset-top,0px));height:calc(100vh - 52px - env(safe-area-inset-top,0px));display:flex;align-items:center;overflow:hidden}
+.show-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,4vw,60px);align-items:center;width:100%}
+.show h2{font-family:var(--font-d);font-weight:600;font-size:clamp(30px,5vw,56px);line-height:1.25}
+.steps{position:relative;margin-top:20px;min-height:9.5em}
+.st{position:absolute;inset:0 0 auto 0;opacity:0;transform:translateY(24px);transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none}
+.st.on{opacity:1;transform:none;pointer-events:auto}
+.st h3{font-family:var(--font-d);font-weight:500;font-size:clamp(22px,3vw,34px);line-height:1.35;color:var(--fg)}
+.st p{color:var(--muted);margin-top:6px;font-size:18px}
+.dots{display:flex;gap:8px;margin-top:20px}
+.dots i{width:28px;height:4px;border-radius:2px;background:var(--line);transition:background .4s,width .4s var(--ease)}
+.dots i.on{background:var(--warm1);width:48px}
+.stage3d{display:grid;place-items:center;perspective:1600px;direction:ltr}
+.rot{position:relative;font-size:var(--ps,10px);width:22em;height:45em;transform-style:preserve-3d;transform:rotateY(calc(var(--p,0) * 360deg)) rotateZ(-4deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.b{transform:rotateY(180deg)}
+.stage3d{--ps:clamp(7px,1.15vw,10.6px)}
+@media(max-width:820px){.show-grid{grid-template-columns:1fr;text-align:center}.stage3d{order:-1;--ps:6.6px}.dots{justify-content:center}.steps{min-height:8em}.show h2{font-size:28px}}
+@media(max-height:560px){.stage3d{--ps:5.2px}}
+
+/* catalog */
+.cat-tools{position:sticky;top:calc(52px + env(safe-area-inset-top,0px));z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-block:12px;margin-top:20px;border-bottom:1px solid var(--line)}
+.row{display:flex;gap:10px;align-items:center}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-block:4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:980px;padding:7px 16px;font-size:15px;font-family:var(--font-d);font-weight:400;transition:background .2s,color .2s,border-color .2s,transform .2s var(--ease)}
+.chip small{opacity:.55;margin-inline-start:6px;font-size:12px}
+.chip:hover{border-color:var(--fg)}
+.chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip:active{transform:scale(.95)}
+.filters{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:10px;align-items:center}
+.search{flex:1 1 220px;min-width:0;display:flex;align-items:center;gap:8px;background:var(--bg2);border-radius:12px;padding:0 12px}
+.search svg{width:18px;height:18px;color:var(--muted);flex:none}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;padding:11px 0;font-size:16px}
+.search:focus-within{box-shadow:0 0 0 3px var(--accent)}
+.sel{background:var(--bg2);border:0;border-radius:12px;padding:11px 12px;font-size:15px;max-width:100%}
+.range{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);flex:1 1 240px;min-width:0}
+.range input{flex:1;min-width:0;accent-color:var(--accent)}
+.range b{color:var(--fg);font-family:var(--font-d);font-weight:500;white-space:nowrap}
+.resinfo{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0 14px;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,248px),1fr));gap:16px}
+.pcard{background:var(--bg2);border-radius:24px;padding:14px 14px 18px;display:flex;flex-direction:column;min-width:0;animation:cardin .55s calc(var(--i,0) * 45ms) var(--ease) both;transition:transform .35s var(--ease),box-shadow .35s}
+.pcard:hover{transform:translateY(-5px);box-shadow:0 18px 40px -22px rgba(0,0,0,.45)}
+@keyframes cardin{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+.pimg{position:relative;display:grid;place-items:center;--ps:5.4px;height:calc(45 * var(--ps) + 36px);border-radius:18px;background:radial-gradient(62% 52% at 50% 56%,color-mix(in srgb,var(--glow) 30%,transparent),transparent 72%);cursor:pointer;overflow:hidden}
+.pimg .pv{transition:transform .6s var(--ease)}
+.pcard:hover .pimg .pv{transform:translateY(-4px) scale(1.06) rotate(-3deg)}
+.badge{position:absolute;top:8px;inset-inline-start:8px;z-index:4;background:var(--fg);color:var(--bg);font-size:12px;font-weight:500;line-height:1;padding:6px 10px;border-radius:980px}
+.badge.sale{background:var(--sale);color:#fff;top:36px}
+.pinfo{padding:12px 6px 0;display:flex;flex-direction:column;gap:4px;flex:1}
+.pbrand{font-size:13px;color:var(--muted)}
+.pname{font-family:var(--font-d);font-weight:500;font-size:19px;line-height:1.4;cursor:pointer}
+.psw{display:flex;gap:7px;margin-block:4px}
+.sw{width:18px;height:18px;border-radius:50%;border:0;background:var(--sc);box-shadow:inset 0 0 0 1px rgba(128,128,128,.4);padding:0;transition:transform .2s var(--ease)}
+.sw:hover{transform:scale(1.2)}
+.sw.on{box-shadow:0 0 0 2px var(--bg2),0 0 0 4px var(--fg)}
+.pspec{font-size:13px;color:var(--muted)}
+.prow{display:flex;align-items:end;justify-content:space-between;gap:8px 10px;margin-top:auto;padding-top:12px;flex-wrap:wrap}
+.price{font-family:var(--font-d);line-height:1.3}
+.price small{display:block;font-size:12px;color:var(--muted);font-family:var(--font-b)}
+.price strong{font-weight:600;font-size:19px;font-variant-numeric:tabular-nums}
+.price s{color:var(--muted);font-size:13px;margin-inline-start:6px}
+.empty{grid-column:1/-1;text-align:center;padding:60px 16px;color:var(--muted)}
+.note{margin-top:22px;font-size:13px;color:var(--muted)}
+@media(max-width:560px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .pcard{padding:8px 8px 14px;border-radius:20px}
+  .pimg{--ps:4.1px}
+  .pname{font-size:15px}
+  .prow{flex-direction:column;align-items:stretch}
+  .btn-sm{width:100%}
+  .price strong{font-size:16px}
+}
+
+/* calculator */
+.calc{background:var(--bg2)}
+.calc-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(20px,4vw,56px);margin-top:36px;align-items:stretch}
+.panel{background:var(--bg);border-radius:28px;padding:clamp(20px,3vw,34px)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.field>label,.field>span{font-size:14px;color:var(--muted)}
+.field .sel{width:100%}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{flex:1 1 60px;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 6px;font-family:var(--font-d);transition:background .2s,color .2s,border-color .2s}
+.seg button.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.res{display:flex;flex-direction:column;justify-content:center;gap:6px;text-align:center}
+.res .big{font-family:var(--font-d);font-weight:600;font-size:clamp(44px,7vw,76px);line-height:1.1;font-variant-numeric:tabular-nums}
+.res .big small{font-size:.32em;font-weight:400;color:var(--muted);margin-inline-start:8px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:15px}
+.kv b{font-family:var(--font-d);font-weight:500;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.calc-grid{grid-template-columns:1fr}}
+
+/* features */
+.feats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:36px}
+.feat{background:var(--bg2);border-radius:24px;padding:28px 22px;transition:transform .4s var(--ease)}
+.feat:hover{transform:translateY(-6px)}
+.feat svg{width:40px;height:40px;color:var(--accent);margin-bottom:16px}
+.feat h3{font-family:var(--font-d);font-weight:500;font-size:20px;line-height:1.4}
+.feat p{color:var(--muted);font-size:15px;margin-top:8px}
+@media(max-width:900px){.feats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.feats{grid-template-columns:1fr}}
+
+/* footer */
+.foot{padding-block:clamp(48px,7vw,80px) 36px}
+.foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px}
+.foot h3{font-family:var(--font-d);font-weight:600;font-size:clamp(26px,3.6vw,40px);line-height:1.3}
+.foot h4{margin:0 0 8px;font-size:14px;font-weight:500;color:var(--muted)}
+.foot p{font-size:16px}
+.copy{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr}}
+
+/* layers: modal, drawer, toast */
+.veil{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s}
+.veil.on{opacity:1;pointer-events:auto}
+.modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));pointer-events:none}
+.mbox{position:relative;width:min(980px,100%);max-height:100%;overflow:auto;background:var(--bg);color:var(--fg);border-radius:28px;display:grid;grid-template-columns:1fr 1fr;opacity:0;transform:translateY(30px) scale(.96);transition:opacity .35s var(--ease),transform .45s var(--ease)}
+.modal.on{pointer-events:auto}
+.modal.on .mbox{opacity:1;transform:none}
+.mleft{display:grid;place-items:center;background:radial-gradient(60% 55% at 50% 55%,color-mix(in srgb,var(--glow,#888) 34%,transparent),transparent 72%),var(--bg2);min-height:340px;padding:24px;--ps:8.4px}
+.mright{padding:clamp(22px,3.4vw,40px);display:flex;flex-direction:column;gap:6px;min-width:0}
+.mright h3{font-family:var(--font-d);font-weight:600;font-size:clamp(26px,3.2vw,36px);line-height:1.3}
+.mclose{position:absolute;top:12px;inset-inline-start:12px;width:38px;height:38px;border-radius:50%;border:0;background:var(--bg2);display:grid;place-items:center;z-index:5;transition:transform .2s var(--ease)}
+.mclose:hover{transform:rotate(90deg)}
+.mclose svg{width:18px;height:18px}
+.mlabel{font-size:14px;color:var(--muted);margin-top:14px}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.opt{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:9px 16px;font-family:var(--font-d);transition:border-color .2s,box-shadow .2s}
+.opt.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.mswatches{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+.mswatches .sw{width:28px;height:28px}
+.mswatches .sw.on{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--fg)}
+.mprice{font-family:var(--font-d);font-weight:600;font-size:34px;margin-top:14px;font-variant-numeric:tabular-nums}
+.mprice small{font-size:15px;font-weight:400;color:var(--muted);margin-inline-start:6px}
+.minst{font-size:14px;color:var(--muted)}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin-top:10px;font-size:15px}
+.spec dt{color:var(--muted)}.spec dd{margin:0;font-family:var(--font-d);font-variant-numeric:tabular-nums}
+.macts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+@media(max-width:760px){.mbox{grid-template-columns:1fr}.mleft{min-height:300px;--ps:6.4px}}
+.drawer{position:fixed;top:0;bottom:0;left:0;z-index:90;width:min(420px,100%);background:var(--bg);color:var(--fg);transform:translateX(-102%);transition:transform .45s var(--ease);display:flex;flex-direction:column;padding:max(18px,env(safe-area-inset-top,0px)) 18px max(18px,env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));box-shadow:0 0 60px rgba(0,0,0,.35)}
+.drawer.on{transform:none}
+.dh{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.dh h3{font-family:var(--font-d);font-weight:600;font-size:22px}
+.dl{flex:1;overflow:auto;padding-block:8px}
+.ci{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);animation:cardin .4s var(--ease) both}
+.ci .dot{width:44px;height:44px;border-radius:12px;background:var(--sc);flex:none;box-shadow:inset 0 0 0 1px rgba(128,128,128,.35)}
+.ci .tx{flex:1;min-width:0}
+.ci .tx b{display:block;font-family:var(--font-d);font-weight:500;font-size:16px;line-height:1.4}
+.ci .tx span{font-size:13px;color:var(--muted)}
+.qty{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:var(--card);line-height:1;padding:0}
+.qty .rm{width:auto;border:0;background:none;color:var(--sale);font-size:13px;padding:0 6px;margin-inline-start:auto;border-radius:6px}
+.ci .pr{font-family:var(--font-d);font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
+.df{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.tot{display:flex;justify-content:space-between;font-family:var(--font-d);font-weight:600;font-size:20px;font-variant-numeric:tabular-nums}
+.df .btn-p{justify-content:center;width:100%}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:100;transform:translate(-50%,40px);background:#1d1d1f;color:#f5f5f7;border-radius:980px;padding:11px 22px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .3s,transform .4s var(--ease);max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.fab{position:fixed;z-index:40;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 10px 28px -8px rgba(0,0,0,.5);transition:transform .3s var(--ease)}
+.fab:hover{transform:scale(1.1) rotate(-6deg)}
+.fab svg{width:26px;height:26px}
+
+/* reveal on scroll, from a visible resting state */
+.rv{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .rv:not(.in){opacity:.3;transform:translateY(40px)}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .mq-track{animation:none}
+  .mq{overflow-x:auto}
+  .js .rv:not(.in){opacity:1;transform:none}
+}
+</style>
+
+<div id="app" dir="rtl" lang="ar">
+<div id="bar"></div>
+
+<header class="nav panel-dark">
+  <div class="wrap">
+    <button class="logo" data-go="top" aria-label="سكاي موبايل، أعلى الصفحة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10 5.5h4"/><circle cx="12" cy="18" r=".6" fill="currentColor"/></svg>
+      سكاي موبايل
+    </button>
+    <nav class="links" aria-label="التنقل">
+      <button class="keep" data-go="catalog">الموبايلات</button>
+      <button data-go="brands">الماركات</button>
+      <button data-go="calc">التقسيط</button>
+      <button data-go="why">لماذا نحن</button>
+      <button data-go="contact">تواصل</button>
+    </nav>
+    <button class="cartbtn" id="cartBtn" aria-label="فتح السلة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+      <span class="cnt" id="cartCnt">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+<!-- hero -->
+<section class="hero panel-dark">
+  <div class="wrap">
+    <div class="eyebrow">جديد · iPhone 17 Pro Max وصل المحل</div>
+    <h1>كل الموبايلات.<br><span class="grad">كل الأسعار.</span></h1>
+    <p class="lead">من آيفون وسامسونج لحد أبسط موبايل بأزرار. كل الماركات في مكان واحد، بضمان وتقسيط وتوصيل.</p>
+    <div class="cta">
+      <button class="btn-p" data-go="catalog">تصفح الموبايلات</button>
+      <button class="btn-l" data-go="calc">احسب القسط الشهري ‹</button>
+    </div>
+    <div class="stats">
+      <div><b class="num" data-count id="stModels">63</b>موديل</div>
+      <div><b class="num" data-count id="stBrands">16</b>ماركة</div>
+      <div><b class="num">0%</b>مقدم في عروض التقسيط المتاحة</div>
+    </div>
+  </div>
+  <div class="hero-stage" id="heroStage" aria-hidden="true">
+    <div class="hp hp-l" data-hero="Galaxy S25 Ultra|2"></div>
+    <div class="hp hp-c" data-hero="iPhone 17 Pro Max|0"></div>
+    <div class="hp hp-r" data-hero="Google Pixel 10 Pro|1"></div>
+  </div>
+</section>
+
+<!-- brands -->
+<section class="brands" id="brands">
+  <div class="wrap"><div class="eyebrow">اضغط على أي ماركة لعرض موبايلاتها</div></div>
+  <div class="mq" id="mq1"></div>
+  <div class="mq rev" id="mq2"></div>
+</section>
+
+<!-- featured -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 class="t">الأكثر طلباً</h2>
+      <p class="lead" style="max-width:34ch">اختيارات الأسبوع من الفئة الرائدة والقابلة للطي والاقتصادية.</p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </div>
+</section>
+
+<!-- sticky rotating phone -->
+<section class="show panel-dark" id="show">
+  <div class="show-in">
+    <div class="wrap">
+      <div class="show-grid">
+        <div>
+          <div class="eyebrow">iPhone 17 Pro Max</div>
+          <h2>شوفه من كل زاوية.</h2>
+          <div class="steps">
+            <div class="st on"><h3>شاشة 6.9 بوصة</h3><p>بمعدل تحديث 120Hz، ألوان وحركة سلسة في كل شيء.</p></div>
+            <div class="st"><h3>كاميرا 48 ميجابكسل × 3</h3><p>ثلاث عدسات في الخلف لصور قريبة وبعيدة بنفس الوضوح.</p></div>
+            <div class="st"><h3>معالج A19 Pro</h3><p>أسرع معالج في آيفون، للألعاب والتصوير والعمل.</p></div>
+          </div>
+          <div class="dots" id="showDots"><i class="on"></i><i></i><i></i></div>
+          <div style="margin-top:22px"><button class="btn-p" id="showBuy">اعرف السعر</button></div>
+        </div>
+        <div class="stage3d"><div class="rot" id="rot"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- catalog -->
+<section class="sec" id="catalog" style="padding-bottom:clamp(48px,7vw,96px)">
+  <div class="wrap">
+    <div class="rv">
+      <h2 class="t">كل الموبايلات</h2>
+      <p class="lead" style="margin-top:6px">اختر الماركة، رتّب بالسعر، وأضف للسلة.</p>
+    </div>
+  </div>
+  <div class="cat-tools">
+    <div class="wrap">
+      <div class="chips" id="brandChips" role="tablist" aria-label="الماركات"></div>
+      <div class="filters">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="q" type="search" placeholder="ابحث باسم الموبايل" aria-label="بحث">
+        </div>
+        <select class="sel" id="tier" aria-label="الفئة">
+          <option value="all">كل الفئات</option>
+          <option value="flagship">رائدة</option>
+          <option value="mid">متوسطة</option>
+          <option value="budget">اقتصادية</option>
+          <option value="fold">قابلة للطي</option>
+          <option value="basic">أزرار</option>
+        </select>
+        <select class="sel" id="sort" aria-label="الترتيب">
+          <option value="pop">الترتيب الافتراضي</option>
+          <option value="asc">السعر من الأقل</option>
+          <option value="desc">السعر من الأعلى</option>
+        </select>
+        <div class="range"><label for="maxp">حتى</label><input id="maxp" type="range" min="1000" max="110000" step="500" value="110000"><b id="maxpv" class="num"></b></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="resinfo"><span id="resCount"></span><span>الأسعار بالجنيه المصري</span></div>
+    <div class="grid" id="grid"></div>
+    <p class="note">الأسعار المعروضة تقديرية وقابلة للتغيير حسب السوق. اسأل عن السعر الحالي قبل الشراء.</p>
+  </div>
+</section>
+
+<!-- calculator -->
+<section class="sec calc" id="calc">
+  <div class="wrap">
+    <div class="rv">
+      <h2 class="t">قسّط موبايلك</h2>
+      <p class="lead" style="margin-top:6px">اختر الموبايل ومدة التقسيط واعرف القسط الشهري التقريبي.</p>
+    </div>
+    <div class="calc-grid">
+      <div class="panel rv">
+        <div class="field"><label for="cPhone">الموبايل</label><select class="sel" id="cPhone"></select></div>
+        <div class="field"><label for="cSt">السعة</label><select class="sel" id="cSt"></select></div>
+        <div class="field"><span>مدة التقسيط</span><div class="seg" id="cMonths"></div></div>
+        <div class="field" style="margin-bottom:0"><label for="cDown">المقدم: <b id="cDownV" class="num">10%</b></label><input id="cDown" type="range" min="0" max="50" step="5" value="10" style="accent-color:var(--accent)"></div>
+      </div>
+      <div class="panel res rv d1">
+        <div class="eyebrow">القسط الشهري التقريبي</div>
+        <div class="big"><span id="rMonthly">0</span><small>ج.م / شهر</small></div>
+        <div style="margin-top:14px">
+          <div class="kv"><span>سعر الموبايل</span><b id="rPrice"></b></div>
+          <div class="kv"><span>المقدم</span><b id="rDown"></b></div>
+          <div class="kv"><span>إجمالي ما تدفعه</span><b id="rTotal"></b></div>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin-top:8px">الحساب تقديري بفائدة ثابتة تقريبية. القسط الفعلي يختلف حسب جهة التمويل.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- why us -->
+<section class="sec" id="why">
+  <div class="wrap">
+    <div class="rv"><h2 class="t">اشترِ وأنت مطمئن.</h2></div>
+    <div class="feats">
+      <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5.5c0 4.2 2.8 7.6 7 9.5 4.2-1.900 7-5.300 7-9.500V6l-7-3Z"/><path d="m9 12 2.200 2.200L15.500 10"/></svg><h3>ضمان على الأجهزة</h3><p>أجهزة أصلية مع ضمان. مدة الضمان تختلف حسب الماركة.</p></div>
+      <div class="feat rv d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5h11v9H3z"/><path d="M14 9.500h4l3 3v3h-7"/><circle cx="7.500" cy="17.500" r="1.800"/><circle cx="17" cy="17.500" r="1.800"/></svg><h3>توصيل لباب البيت</h3><p>نشحن الطلب لعنوانك، وتتفق معنا على الدفع عند الاستلام.</p></div>
+      <div class="feat rv d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-14 5.300"/><path d="M4 12a8 8 0 0 1 14-5.300"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></svg><h3>استبدال جهازك القديم</h3><p>نقيّم جهازك القديم ونخصمه من سعر الجديد.</p></div>
+      <div class="feat rv d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.500 6.500a4 4 0 0 0 4.800 4.800L13 17.500a2.100 2.100 0 0 1-3-3l6.300-6.300"/><path d="M14.500 6.500 17 4l3 3-2.500 2.500"/><path d="M5 19l3-3"/></svg><h3>صيانة وإكسسوارات</h3><p>جرابات وشواحن وسماعات وصيانة سريعة في المحل.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot panel-dark" id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><h3>تعالى المحل<br>أو اطلب أونلاين.</h3></div>
+      <div>
+        <h4>الهاتف والواتساب</h4><p class="num" dir="ltr" style="text-align:right">+201044946271</p>
+        <h4 style="margin-top:18px">العنوان</h4><p>اكتب عنوان المحل هنا</p>
+      </div>
+      <div>
+        <h4>مواعيد العمل</h4><p>يومياً من 10 صباحاً حتى 11 مساءً</p>
+        <div style="margin-top:18px"><a class="btn-o" id="footWa" href="#" target="_blank" rel="noopener">اطلب عبر واتساب</a></div>
+      </div>
+    </div>
+    <div class="copy">© <span id="yr"></span> سكاي موبايل. جميع الحقوق محفوظة.</div>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="تواصل معنا على واتساب">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.500a8 8 0 0 1-11.800 7L4 20l1.500-4.100A8 8 0 1 1 20 11.500Z"/><path d="M9 9.500c.3 2.200 2.300 4.200 4.500 4.500l1.200-1.200-1.800-1-.9.700a3.500 3.500 0 0 1-1.500-1.500l.7-.9-1-1.800L9 9.500Z"/></svg>
+</a>
+
+<div class="veil" id="veil"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" aria-hidden="true"></div>
+<aside class="drawer" id="drawer" aria-label="سلة المشتريات" aria-hidden="true">
+  <div class="dh"><h3>السلة</h3><button class="mclose" id="drawerClose" style="position:static" aria-label="إغلاق السلة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="dl" id="dl"></div>
+  <div class="df" id="df"></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+(function(){
+document.documentElement.classList.add('js');
+document.documentElement.setAttribute('dir','rtl');
+document.documentElement.setAttribute('lang','ar');
+
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var fmt=function(n){return Math.round(n).toLocaleString('en-US')};
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- shop settings (edit these) ---------- */
+var WA='+201044946271';              // رقم واتساب بالصيغة الدولية، مثال: 201012345678
+var RATE=0.018;         // نسبة فائدة التقسيط الشهرية التقريبية
+
+/* ---------- data ---------- */
+var BRANDS=[
+ ['apple','Apple','آبل'],['samsung','Samsung','سامسونج'],['xiaomi','Xiaomi','شاومي'],['oppo','Oppo','أوبو'],
+ ['realme','Realme','ريلمي'],['vivo','Vivo','فيفو'],['honor','Honor','هونر'],['huawei','Huawei','هواوي'],
+ ['infinix','Infinix','إنفينكس'],['tecno','Tecno','تكنو'],['motorola','Motorola','موتورولا'],['nokia','Nokia','نوكيا'],
+ ['oneplus','OnePlus','ون بلس'],['google','Google Pixel','جوجل بيكسل'],['nothing','Nothing','ناثينج'],['itel','itel','آيتل']
+];
+var COL={k:['أسود','#1c1c1e'],w:['أبيض','#eeeef0'],s:['فضي','#d5d6d9'],g:['رمادي','#7c7e84'],b:['أزرق','#3b6bb5'],n:['كحلي','#222c4a'],t:['تركوازي','#2f8f8f'],m:['نعناعي','#a5d6c3'],e:['أخضر','#3f7d5c'],p:['بنفسجي','#7b63ba'],l:['لافندر','#bcaee3'],r:['وردي','#e8a3ba'],o:['برتقالي','#e2753a'],d:['ذهبي','#d6b46f'],c:['كريمي','#e6dccb'],x:['أحمر','#bf3a30'],y:['أصفر','#e6c34a'],v:['تيتانيوم','#8e8c88']};
+var TIER={flagship:'رائدة',mid:'متوسطة',budget:'اقتصادية',fold:'قابلة للطي',basic:'أزرار'};
+/* brand, name, tier, camera style, base price (EGP, first storage), storages(GB), colors, [screen, camera, chip, battery], badge, discount% */
+var RAW=[
+['apple','iPhone 17 Pro Max','flagship','tri',98000,[256,512,1024],'o n s',['6.9″ · 120Hz','48MP × 3','A19 Pro',''],'جديد',0],
+['apple','iPhone 17 Pro','flagship','tri',88000,[256,512,1024],'o n s',['6.3″ · 120Hz','48MP × 3','A19 Pro',''],'جديد',0],
+['apple','iPhone Air','flagship','pill',79000,[256,512,1024],'k w d b',['6.5″ · 120Hz','48MP','A19 Pro',''],'جديد',0],
+['apple','iPhone 17','flagship','dual',66000,[256,512],'k w b e l',['6.3″ · 120Hz','48MP × 2','A19',''],'',0],
+['apple','iPhone 16e','mid','dual',38500,[128,256,512],'k w',['6.1″ OLED','48MP','A18',''],'',0],
+['apple','iPhone 16','flagship','dual',52000,[128,256,512],'k w t r b',['6.1″ OLED','48MP × 2','A18',''],'',0],
+['apple','iPhone 15','flagship','dual',41000,[128,256],'k b r y',['6.1″ OLED','48MP × 2','A16 Bionic',''],'',8],
+['samsung','Galaxy S25 Ultra','flagship','dots',74500,[256,512,1024],'k v b s',['6.9″ · 120Hz','200MP + 3','Snapdragon 8 Elite','5000mAh'],'الأكثر طلباً',0],
+['samsung','Galaxy S25+','flagship','dots',56000,[256,512],'n b m s',['6.7″ · 120Hz','50MP × 3','Snapdragon 8 Elite','4900mAh'],'',0],
+['samsung','Galaxy S25','flagship','dots',41500,[128,256,512],'n b m s',['6.2″ · 120Hz','50MP × 3','Snapdragon 8 Elite','4000mAh'],'',0],
+['samsung','Galaxy S25 FE','flagship','dots',31000,[128,256],'k n b w',['6.7″ · 120Hz','50MP × 3','Exynos 2400','4900mAh'],'',0],
+['samsung','Galaxy Z Fold7','fold','dots',105000,[256,512,1024],'b k s',['8.0″ داخلية · 120Hz','200MP + 2','Snapdragon 8 Elite','4400mAh'],'قابل للطي',0],
+['samsung','Galaxy Z Flip7','fold','flip',65000,[256,512],'b k r',['6.9″ داخلية · 120Hz','50MP × 2','Exynos 2500','4300mAh'],'قابل للطي',0],
+['samsung','Galaxy A56 5G','mid','dots',19500,[128,256],'k g l',['6.7″ · 120Hz','50MP × 3','Exynos 1580','5000mAh'],'',0],
+['samsung','Galaxy A36 5G','mid','dots',16500,[128,256],'k l m',['6.7″ · 120Hz','50MP × 3','Snapdragon 6 Gen 3','5000mAh'],'',0],
+['samsung','Galaxy A26 5G','mid','dots',12500,[128,256],'k w m',['6.7″ · 120Hz','50MP × 3','Exynos 1380','5000mAh'],'',9],
+['samsung','Galaxy A16','budget','dots',8500,[128,256],'k g l',['6.7″ · 90Hz','50MP × 3','Helio G99','5000mAh'],'',10],
+['samsung','Galaxy A06','budget','dual',5500,[64,128],'k e',['6.7″','50MP × 2','Helio G85','5000mAh'],'',0],
+['xiaomi','Xiaomi 15T Pro','flagship','sq',38000,[256,512,1024],'g k m',['6.83″ · 144Hz','50MP × 3 Leica','Dimensity 9400+','5500mAh'],'جديد',0],
+['xiaomi','Xiaomi 15','flagship','sq',42000,[256,512],'k w e',['6.36″ · 120Hz','50MP × 3 Leica','Snapdragon 8 Elite','5240mAh'],'',0],
+['xiaomi','Redmi Note 14 Pro+ 5G','mid','sq',20500,[256,512],'k p b',['6.67″ · 120Hz','200MP + 2','Snapdragon 7s Gen 3','5110mAh'],'أفضل قيمة',0],
+['xiaomi','Redmi Note 14','mid','sq',11500,[128,256],'k e p',['6.67″ · 120Hz','108MP + 2','Helio G99 Ultra','5500mAh'],'',7],
+['xiaomi','Redmi 14C','budget','sq',6500,[128,256],'k b e',['6.88″ · 90Hz','50MP','Helio G81 Ultra','5160mAh'],'',0],
+['xiaomi','Redmi 13','budget','sq',7800,[128,256],'k b p',['6.79″ · 90Hz','108MP + 2','Helio G91 Ultra','5030mAh'],'',0],
+['xiaomi','POCO F7','mid','sq',25500,[256,512],'k w y',['6.83″ · 120Hz','50MP × 2','Snapdragon 8s Gen 4','6500mAh'],'',0],
+['xiaomi','POCO X7 Pro','mid','sq',19000,[256,512],'k y g',['6.67″ · 120Hz','50MP × 2','Dimensity 8400 Ultra','6000mAh'],'',0],
+['oppo','Oppo Find X8','flagship','circle',38000,[256,512],'b w',['6.59″ · 120Hz','50MP × 3 Hasselblad','Dimensity 9400','5630mAh'],'',0],
+['oppo','Oppo Reno14 5G','mid','circle',23500,[256,512],'m w',['6.59″ · 120Hz','50MP × 3','Dimensity 8350','6000mAh'],'',0],
+['oppo','Oppo Reno13 F','mid','circle',14500,[256],'p g',['6.67″ · 120Hz','50MP × 2','Helio G100','5800mAh'],'',0],
+['oppo','Oppo A5 Pro','budget','circle',9500,[128,256],'k b',['6.67″ · 120Hz','50MP × 2','Dimensity 6300','5800mAh'],'',0],
+['realme','Realme GT 7 Pro','flagship','circle',33000,[256,512],'g o',['6.78″ · 120Hz','50MP × 3','Snapdragon 8 Elite','6500mAh'],'',0],
+['realme','Realme 14 Pro+ 5G','mid','circle',19500,[256,512],'w g',['6.83″ · 120Hz','50MP × 3','Snapdragon 7s Gen 3','6000mAh'],'',0],
+['realme','Realme C75','budget','circle',7500,[128,256],'k y',['6.72″ · 90Hz','50MP × 2','Helio G92 Max','6000mAh'],'',0],
+['realme','Realme Note 60','budget','dual',4500,[64,128],'k d',['6.74″ · 90Hz','32MP','Unisoc T612','5000mAh'],'',0],
+['vivo','Vivo X200 Pro','flagship','circle',48000,[512,1024],'k b',['6.78″ · 120Hz','50MP × 3 Zeiss','Dimensity 9400','6000mAh'],'',0],
+['vivo','Vivo V50','mid','circle',21000,[256,512],'r n g',['6.77″ · 120Hz','50MP × 2','Snapdragon 7 Gen 3','6000mAh'],'',0],
+['vivo','Vivo Y29','budget','circle',7900,[128,256],'k e',['6.68″ · 120Hz','50MP × 2','Helio G85','5500mAh'],'',0],
+['honor','Honor Magic7 Pro','flagship','circle',46000,[512],'k g',['6.8″ · 120Hz','50MP × 3','Snapdragon 8 Elite','5270mAh'],'',0],
+['honor','Honor 400','mid','circle',21500,[256,512],'k m',['6.55″ · 120Hz','200MP + 2','Snapdragon 7 Gen 3','5300mAh'],'',0],
+['honor','Honor X9c','mid','circle',16500,[256,512],'g o',['6.78″ · 120Hz','108MP + 2','Snapdragon 6 Gen 1','6600mAh'],'',0],
+['honor','Honor X7c','budget','circle',8500,[128,256],'k e',['6.8″ · 120Hz','50MP × 2','Snapdragon 685','5200mAh'],'',0],
+['honor','Honor Magic V5','fold','circle',92000,[512,1024],'k g',['8.0″ داخلية · 120Hz','50MP × 3','Snapdragon 8 Elite','5820mAh'],'قابل للطي',0],
+['huawei','Huawei Pura 80 Pro','flagship','circle',52000,[256,512],'k w',['6.8″ · 120Hz','50MP × 3','Kirin 9020','5170mAh'],'',0],
+['huawei','Huawei Nova 13','mid','circle',17000,[256],'k w',['6.7″ OLED','50MP','','5000mAh'],'',0],
+['infinix','Infinix Note 50 Pro','mid','sq',11500,[256],'k g',['6.78″ · 144Hz','50MP × 2','Helio G100 Ultra','5200mAh'],'',0],
+['infinix','Infinix Hot 50','budget','sq',6500,[128,256],'k g',['6.78″ · 120Hz','48MP','Helio G100','5000mAh'],'',10],
+['infinix','Infinix Smart 9','budget','sq',3900,[64,128],'k m',['6.7″ · 90Hz','13MP','Helio G50','5000mAh'],'',0],
+['tecno','Tecno Camon 40 Pro','mid','sq',11000,[256],'k g',['6.78″ · 120Hz','50MP × 2','Helio G100','5200mAh'],'',0],
+['tecno','Tecno Spark 30','budget','sq',5600,[128,256],'k e',['6.78″ · 120Hz','50MP','Helio G91','5000mAh'],'',0],
+['tecno','Tecno Pova 6 Pro','mid','sq',9800,[256],'k g',['6.78″ · 120Hz','108MP','Helio G99','6000mAh'],'',0],
+['motorola','Motorola Edge 60 Pro','mid','dual',28000,[512],'g e',['6.7″ · 120Hz','50MP × 3','Dimensity 8350 Extreme','6000mAh'],'',0],
+['motorola','Moto G85 5G','mid','dual',12800,[256],'n e g',['6.67″ · 120Hz','50MP × 2','Snapdragon 6s Gen 3','5000mAh'],'',0],
+['motorola','Moto G15','budget','dual',5700,[128],'g e',['6.72″ · 120Hz','50MP × 2','Helio G81 Extreme','5200mAh'],'',12],
+['motorola','Motorola Razr 60','fold','flip',33000,[256],'r l b',['3.6″ خارجية · 6.9″ داخلية','50MP × 2','Dimensity 7400X','4500mAh'],'قابل للطي',0],
+['nokia','Nokia 105 4G','basic','keys',1100,[0],'k b',['1.8″','بدون كاميرا','أزرار 4G',''],'',0],
+['nokia','Nokia 110 4G','basic','keys',1300,[0],'k b',['1.8″','كاميرا VGA','أزرار 4G',''],'',0],
+['oneplus','OnePlus 13','flagship','circle',44000,[256,512],'k b w',['6.82″ · 120Hz','50MP × 3 Hasselblad','Snapdragon 8 Elite','6000mAh'],'',0],
+['google','Google Pixel 10 Pro','flagship','pill',62000,[256,512,1024],'g e w k',['6.3″ · 120Hz','50MP × 3','Tensor G5','4870mAh'],'',0],
+['google','Google Pixel 9a','mid','pill',27500,[128,256],'k w r',['6.3″ · 120Hz','48MP × 2','Tensor G4','5100mAh'],'',0],
+['nothing','Nothing Phone (3)','flagship','dual',36000,[256,512],'k w',['6.67″ · 120Hz','50MP × 3','Snapdragon 8s Gen 4','5150mAh'],'',0],
+['nothing','Nothing Phone (3a)','mid','dual',17500,[128,256],'k w b',['6.77″ · 120Hz','50MP × 3','Snapdragon 7s Gen 3','5000mAh'],'',0],
+['itel','itel A70','budget','dual',4200,[128,256],'k e',['6.6″ · 90Hz','13MP','Unisoc T603','5000mAh'],'',0],
+['itel','itel P55','budget','dual',5500,[128,256],'k b',['6.6″ · 90Hz','50MP','Helio G88','5000mAh'],'',0]
+];
+var MUL=[1,1.13,1.34,1.62];
+var P=RAW.map(function(r,i){
+  return {id:i,brand:r[0],name:r[1],tier:r[2],cam:r[3],sts:r[5],
+    prices:r[5].map(function(s,j){return Math.round(r[4]*MUL[j]/50)*50}),
+    colors:r[6].split(' ').map(function(k){return COL[k]}),specs:r[7],badge:r[8],off:r[9]};
+});
+var bAr=function(k){for(var i=0;i<BRANDS.length;i++){if(BRANDS[i][0]===k)return BRANDS[i][2]}return k};
+var byName=function(n){for(var i=0;i<P.length;i++){if(P[i].name===n)return P[i]}return P[0]};
+var stLabel=function(g){return g===0?'قياسي':(g>=1024?(g/1024)+'TB':g+'GB')};
+var MAXP=0;P.forEach(function(p){var m=Math.max.apply(null,p.prices);if(m>MAXP)MAXP=m});
+MAXP=Math.ceil(MAXP/500)*500;
+
+/* ---------- phone drawing ---------- */
+function phoneBack(p,hex){
+  if(p.cam==='keys'){
+    var k='';for(var i=0;i<12;i++)k+='<i></i>';
+    return '<div class="phone basic" style="--c:'+hex+'"><i class="btn"></i><div class="lcd"></div><div class="keys">'+k+'</div></div>';
+  }
+  return '<div class="phone cam-'+p.cam+'" style="--c:'+hex+'"><i class="btn"></i><div class="cam"><b></b><b></b><b></b><em></em></div></div>';
+}
+function phoneFront(hex){
+  return '<div class="phone front" style="--c:'+hex+'"><i class="btn"></i><div class="scr"><div class="isl"></div><div class="dt jsdate"></div><div class="clk">9:41</div><div class="home"></div></div></div>';
+}
+function pv(p,hex,ps){
+  return '<div class="pv'+(p.cam==='keys'?' basicwrap':'')+'"'+(ps?' style="--ps:'+ps+'"':'')+'>'+phoneBack(p,hex)+'</div>';
+}
+
+/* ---------- hero ---------- */
+$$('[data-hero]').forEach(function(el){
+  var a=el.getAttribute('data-hero').split('|');var p=byName(a[0]);
+  el.innerHTML=pv(p,p.colors[+a[1]%p.colors.length][1]);
+});
+$('#stModels').textContent=P.length;
+$('#stBrands').textContent=BRANDS.length;
+
+/* ---------- marquee ---------- */
+(function(){
+  function row(list){
+    var html=list.map(function(b){return '<button data-brand="'+b[0]+'">'+b[1]+'</button>'}).join('');
+    return '<div class="mq-track">'+html+'</div><div class="mq-track" aria-hidden="true">'+html+'</div>';
+  }
+  var a=BRANDS.slice(0,8),b=BRANDS.slice(8);
+  $('#mq1').innerHTML=row(a);$('#mq2').innerHTML=row(b);
+  $$('.mq-track[aria-hidden] button').forEach(function(x){x.tabIndex=-1});
+})();
+
+/* ---------- tiles ---------- */
+var TILES=[
+ ['iPhone 17 Pro Max','جديد','شاشة كبيرة وثلاث كاميرات. أقوى آيفون.',0,'light','#e2753a'],
+ ['Galaxy S25 Ultra','الأكثر طلباً','كاميرا 200 ميجابكسل وقلم S Pen.',0,'dark','#3b6bb5'],
+ ['Galaxy Z Fold7','قابل للطي','شاشة 8 بوصة تتحول لجيبك.',0,'dark','#7b63ba'],
+ ['Redmi Note 14 Pro+ 5G','أفضل قيمة','كاميرا 200 ميجابكسل بسعر متوسط.',0,'light','#3b6bb5']
+];
+$('#tiles').innerHTML=TILES.map(function(t,i){
+  var p=byName(t[0]);var c=p.colors[t[3]][1];
+  return '<article class="tile rv d'+(i%2)+' '+(t[4]==='dark'?'panel-dark':'')+'" style="--glow:'+t[5]+'">'+
+   '<div class="tag">'+t[1]+'</div><h3>'+p.name+'</h3><p class="sub">'+t[2]+'</p>'+
+   '<div class="price">ابتداءً من <b class="num">'+fmt(p.prices[0])+'</b> ج.م</div>'+
+   '<div class="acts"><button class="btn-p" data-add="'+p.id+'">أضف للسلة</button><button class="btn-l" data-open="'+p.id+'">التفاصيل ‹</button></div>'+
+   '<div class="tp">'+pv(p,c)+'</div></article>';
+}).join('');
+
+/* ---------- sticky rotating phone ---------- */
+var showP=byName('iPhone 17 Pro Max');
+$('#rot').innerHTML='<div class="face f">'+phoneFront(showP.colors[0][1])+'</div><div class="face b">'+phoneBack(showP,showP.colors[0][1])+'</div>';
+$('#showBuy').addEventListener('click',function(){openModal(showP.id)});
+var d=new Date();var ds='';
+try{ds=d.toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'})}catch(e){}
+$$('.jsdate').forEach(function(x){x.textContent=ds});
+$('#yr').textContent=d.getFullYear();
+
+/* ---------- catalog ---------- */
+var S={brand:'all',tier:'all',q:'',sort:'pop',max:MAXP};
+var maxp=$('#maxp');maxp.max=MAXP;maxp.value=MAXP;
+function renderChips(){
+  var counts={};P.forEach(function(p){counts[p.brand]=(counts[p.brand]||0)+1});
+  var h='<button class="chip'+(S.brand==='all'?' on':'')+'" data-brand="all" role="tab">الكل<small>'+P.length+'</small></button>';
+  BRANDS.forEach(function(b){h+='<button class="chip'+(S.brand===b[0]?' on':'')+'" data-brand="'+b[0]+'" role="tab">'+b[1]+'<small>'+counts[b[0]]+'</small></button>'});
+  $('#brandChips').innerHTML=h;
+}
+function card(p,i){
+  var c=p.colors[0];
+  var old=p.off?Math.round(p.prices[0]*(1+p.off/100)/50)*50:0;
+  var sw=p.colors.map(function(cc,k){return '<button class="sw'+(k?'':' on')+'" data-sw="'+k+'" style="--sc:'+cc[1]+'" aria-label="'+cc[0]+'" title="'+cc[0]+'"></button>'}).join('');
+  return '<article class="pcard" data-id="'+p.id+'" style="--i:'+Math.min(i,14)+'">'+
+   '<div class="pimg" style="--glow:'+c[1]+'" data-open="'+p.id+'">'+(p.badge?'<span class="badge">'+p.badge+'</span>':'')+(p.off?'<span class="badge sale">خصم '+p.off+'%</span>':'')+pv(p,c[1])+'</div>'+
+   '<div class="pinfo"><div class="pbrand">'+bAr(p.brand)+' · '+TIER[p.tier]+'</div>'+
+   '<h3 class="pname" data-open="'+p.id+'">'+p.name+'</h3>'+
+   '<div class="psw">'+sw+'</div>'+
+   '<div class="pspec">'+(p.sts[0]?p.sts.map(stLabel).join(' · '):'قياسي')+'</div>'+
+   '<div class="prow"><div class="price"><small>'+(p.sts.length>1?'يبدأ من':'السعر')+'</small><strong>'+fmt(p.prices[0])+'</strong> ج.م'+(old?'<s>'+fmt(old)+'</s>':'')+'</div>'+
+   '<button class="btn-sm" data-add="'+p.id+'">أضف للسلة</button></div></div></article>';
+}
+function renderGrid(){
+  var q=S.q.trim().toLowerCase();
+  var list=P.filter(function(p){
+    if(S.brand!=='all'&&p.brand!==S.brand)return false;
+    if(S.tier!=='all'&&p.tier!==S.tier)return false;
+    if(p.prices[0]>S.max)return false;
+    if(q){var hay=(p.name+' '+bAr(p.brand)+' '+p.brand).toLowerCase();if(hay.indexOf(q)<0)return false}
+    return true;
+  });
+  if(S.sort==='asc')list.sort(function(a,b){return a.prices[0]-b.prices[0]});
+  if(S.sort==='desc')list.sort(function(a,b){return b.prices[0]-a.prices[0]});
+  $('#grid').innerHTML=list.length?list.map(card).join(''):'<div class="empty">لا توجد نتائج. جرّب ماركة أخرى أو ارفع حد السعر.</div>';
+  $('#resCount').textContent=list.length+' موبايل';
+  $('#maxpv').textContent=S.max>=MAXP?'بدون حد':fmt(S.max)+' ج.م';
+}
+renderChips();renderGrid();
+
+function setBrand(b,scroll){
+  S.brand=b;renderChips();renderGrid();
+  var chip=$('#brandChips .chip.on');if(chip&&chip.scrollIntoView){try{chip.scrollIntoView({inline:'center',block:'nearest',behavior:reduce?'auto':'smooth'})}catch(e){}}
+  if(scroll)go('catalog');
+}
+$('#brandChips').addEventListener('click',function(e){var b=e.target.closest('[data-brand]');if(b)setBrand(b.getAttribute('data-brand'))});
+$$('.mq').forEach(function(m){m.addEventListener('click',function(e){var b=e.target.closest('[data-brand]');if(b)setBrand(b.getAttribute('data-brand'),true)})});
+$('#q').addEventListener('input',function(e){S.q=e.target.value;renderGrid()});
+$('#tier').addEventListener('change',function(e){S.tier=e.target.value;renderGrid()});
+$('#sort').addEventListener('change',function(e){S.sort=e.target.value;renderGrid()});
+maxp.addEventListener('input',function(e){S.max=+e.target.value;renderGrid()});
+
+/* card interactions + generic delegates */
+document.addEventListener('click',function(e){
+  var t=e.target;
+  var sw=t.closest('[data-sw]');
+  if(sw){
+    var cardEl=sw.closest('.pcard');var p=P[+cardEl.getAttribute('data-id')];var k=+sw.getAttribute('data-sw');
+    $$('.sw',cardEl).forEach(function(x){x.classList.toggle('on',x===sw)});
+    var ph=$('.phone',cardEl);if(ph)ph.style.setProperty('--c',p.colors[k][1]);
+    $('.pimg',cardEl).style.setProperty('--glow',p.colors[k][1]);
+    cardEl.setAttribute('data-ci',k);
+    return;
+  }
+  var add=t.closest('[data-add]');
+  if(add){
+    var id=+add.getAttribute('data-add');var ce=add.closest('.pcard');
+    addToCart(id,0,ce?+ce.getAttribute('data-ci')||0:0);
+    return;
+  }
+  var op=t.closest('[data-open]');
+  if(op){openModal(+op.getAttribute('data-open'));return}
+  var g=t.closest('[data-go]');
+  if(g){go(g.getAttribute('data-go'))}
+});
+function go(id){
+  var el=id==='top'?document.body:document.getElementById(id);
+  if(!el)return;
+  var y=id==='top'?0:el.getBoundingClientRect().top+window.scrollY-56;
+  window.scrollTo({top:Math.max(0,y),behavior:reduce?'auto':'smooth'});
+}
+
+/* ---------- cart ---------- */
+var cart=[];
+try{var raw=JSON.parse(localStorage.getItem('sky-cart')||'[]');if(Array.isArray(raw))cart=raw.filter(function(i){return P[i.id]&&P[i.id].prices[i.si]!==undefined&&P[i.id].colors[i.ci]&&i.q>0})}catch(e){}
+function saveCart(){try{localStorage.setItem('sky-cart',JSON.stringify(cart))}catch(e){}}
+var toastT;
+function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on')},2200)}
+function addToCart(id,si,ci){
+  var f=cart.filter(function(i){return i.id===id&&i.si===si&&i.ci===ci})[0];
+  if(f)f.q++;else cart.push({id:id,si:si,ci:ci,q:1});
+  saveCart();renderCart();
+  var b=$('#cartBtn');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');
+  toast('تمت إضافة '+P[id].name+' للسلة');
+}
+function line(i){var p=P[i.id];return p.name+(p.sts[i.si]?' '+stLabel(p.sts[i.si]):'')+' ('+p.colors[i.ci][0]+')'}
+function waLink(text){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(text)}
+function renderCart(){
+  var n=cart.reduce(function(s,i){return s+i.q},0);
+  var c=$('#cartCnt');c.textContent=n;c.classList.toggle('show',n>0);
+  var dl=$('#dl'),df=$('#df');
+  if(!cart.length){
+    dl.innerHTML='<div class="empty" style="padding:48px 8px">السلة فاضية. أضف موبايل من القائمة.</div>';
+    df.innerHTML='<button class="btn-o" id="shopMore">تصفح الموبايلات</button>';
+    return;
+  }
+  var total=0,msg='مرحباً، أريد طلب:\n';
+  dl.innerHTML=cart.map(function(i,idx){
+    var p=P[i.id];var pr=p.prices[i.si]*i.q;total+=pr;
+    msg+='- '+line(i)+' × '+i.q+' = '+fmt(pr)+' ج.م\n';
+    return '<div class="ci"><div class="dot" style="--sc:'+p.colors[i.ci][1]+'"></div><div class="tx"><b>'+p.name+'</b><span>'+(p.sts[i.si]?stLabel(p.sts[i.si])+' · ':'')+p.colors[i.ci][0]+'</span>'+
+      '<div class="qty"><button data-q="-1" data-i="'+idx+'" aria-label="إنقاص">−</button><span class="num">'+i.q+'</span><button data-q="1" data-i="'+idx+'" aria-label="زيادة">+</button><button class="rm" data-rm="'+idx+'">حذف</button></div></div>'+
+      '<div class="pr">'+fmt(pr)+' ج.م</div></div>';
+  }).join('');
+  msg+='الإجمالي: '+fmt(total)+' ج.م';
+  df.innerHTML='<div class="tot"><span>الإجمالي</span><span>'+fmt(total)+' ج.م</span></div>'+
+    '<a class="btn-p" href="'+waLink(msg)+'" target="_blank" rel="noopener">أرسل الطلب على واتساب</a>'+
+    '<p style="font-size:12px;color:var(--muted);text-align:center">يفتح واتساب برسالة جاهزة بطلبك، وأنت تضغط إرسال.</p>';
+}
+$('#drawer').addEventListener('click',function(e){
+  var q=e.target.closest('[data-q]'),rm=e.target.closest('[data-rm]');
+  if(q){var it=cart[+q.getAttribute('data-i')];it.q+=+q.getAttribute('data-q');if(it.q<1)cart.splice(+q.getAttribute('data-i'),1);saveCart();renderCart()}
+  if(rm){cart.splice(+rm.getAttribute('data-rm'),1);saveCart();renderCart()}
+  if(e.target.id==='shopMore'){closeAll();go('catalog')}
+});
+function openDrawer(){closeModal(true);$('#drawer').classList.add('on');$('#drawer').setAttribute('aria-hidden','false');$('#veil').classList.add('on');document.body.classList.add('lock')}
+function closeDrawer(keep){$('#drawer').classList.remove('on');$('#drawer').setAttribute('aria-hidden','true');if(!keep){$('#veil').classList.remove('on');document.body.classList.remove('lock')}}
+$('#cartBtn').addEventListener('click',openDrawer);
+$('#drawerClose').addEventListener('click',function(){closeDrawer()});
+renderCart();
+
+/* ---------- product modal ---------- */
+var M={id:0,si:0,ci:0};
+function openModal(id){
+  closeDrawer(true);
+  M={id:id,si:0,ci:0};
+  var p=P[id];var c=p.colors[0][1];
+  var sts=p.sts[0]?'<div class="mlabel">السعة</div><div class="opts" id="mSts">'+p.sts.map(function(s,i){return '<button class="opt'+(i?'':' on')+'" data-s="'+i+'">'+stLabel(s)+'</button>'}).join('')+'</div>':'';
+  var sw='<div class="mlabel">اللون: <b id="mColName" style="color:var(--fg);font-weight:500">'+p.colors[0][0]+'</b></div><div class="mswatches" id="mSw">'+p.colors.map(function(cc,k){return '<button class="sw'+(k?'':' on')+'" data-c="'+k+'" style="--sc:'+cc[1]+'" aria-label="'+cc[0]+'"></button>'}).join('')+'</div>';
+  var labels=['الشاشة','الكاميرا','المعالج','البطارية'];
+  var spec='<dl class="spec">'+p.specs.map(function(s,i){return s?'<dt>'+labels[i]+'</dt><dd>'+s+'</dd>':''}).join('')+'</dl>';
+  $('#modal').innerHTML='<div class="mbox" style="--glow:'+c+'"><button class="mclose" id="mClose" aria-label="إغلاق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>'+
+    '<div class="mleft" id="mLeft" style="--glow:'+c+'">'+pv(p,c)+'</div>'+
+    '<div class="mright"><div class="pbrand">'+bAr(p.brand)+' · '+TIER[p.tier]+'</div><h3 id="mTitle">'+p.name+'</h3>'+sw+sts+
+    '<div class="mprice"><span id="mPrice">0</span><small>ج.م</small></div><div class="minst" id="mInst"></div>'+spec+
+    '<div class="macts"><button class="btn-p" id="mAdd">أضف للسلة</button><a class="btn-o" id="mWa" href="#" target="_blank" rel="noopener">اسأل على واتساب</a></div></div></div>';
+  $('#modal').classList.add('on');$('#modal').setAttribute('aria-hidden','false');
+  $('#veil').classList.add('on');document.body.classList.add('lock');
+  updModal(true);
+  setTimeout(function(){var c=$('#mClose');if(c)c.focus()},60);
+}
+function updModal(first){
+  var p=P[M.id];var pr=p.prices[M.si];
+  tween($('#mPrice'),pr,first);
+  $('#mInst').textContent='أو قسّط من '+fmt(monthly(pr,.1,12))+' ج.م شهرياً لمدة 12 شهر (تقريبي)';
+  $('#mWa').href=waLink('مرحباً، أسأل عن '+line({id:M.id,si:M.si,ci:M.ci})+' بسعر '+fmt(pr)+' ج.م');
+}
+$('#modal').addEventListener('click',function(e){
+  if(e.target===$('#modal')||e.target.closest('#mClose')){closeModal();return}
+  var s=e.target.closest('[data-s]'),c=e.target.closest('[data-c]');
+  if(s){M.si=+s.getAttribute('data-s');$$('#mSts .opt').forEach(function(x){x.classList.toggle('on',x===s)});updModal()}
+  if(c){
+    M.ci=+c.getAttribute('data-c');var p=P[M.id];
+    $$('#mSw .sw').forEach(function(x){x.classList.toggle('on',x===c)});
+    $('#mColName').textContent=p.colors[M.ci][0];
+    var ph=$('#mLeft .phone');if(ph)ph.style.setProperty('--c',p.colors[M.ci][1]);
+    $('#mLeft').style.setProperty('--glow',p.colors[M.ci][1]);
+    updModal();
+  }
+  if(e.target.closest('#mAdd')){addToCart(M.id,M.si,M.ci);closeModal(true);openDrawer()}
+});
+function closeModal(keep){
+  var m=$('#modal');if(!m.classList.contains('on'))return;
+  m.classList.remove('on');m.setAttribute('aria-hidden','true');
+  if(!keep){$('#veil').classList.remove('on');document.body.classList.remove('lock')}
+}
+function closeAll(){closeModal();closeDrawer()}
+$('#veil').addEventListener('click',closeAll);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll()});
+
+/* ---------- number tween ---------- */
+function tween(el,to,instant){
+  var from=+el.getAttribute('data-v')||0;el.setAttribute('data-v',to);
+  if(reduce||instant&&!from){el.textContent=fmt(to);if(!instant||reduce)return}
+  var t0=performance.now(),dur=instant?700:450;
+  (function step(t){
+    var k=Math.min(1,(t-t0)/dur);k=1-Math.pow(1-k,3);
+    el.textContent=fmt(from+(to-from)*k);
+    if(k<1)requestAnimationFrame(step);
+  })(t0);
+}
+
+/* ---------- installment calculator ---------- */
+function monthly(price,down,months){return price*(1-down)*(1+RATE*months)/months}
+var cMonths=[6,12,18,24,36],cm=12;
+(function(){
+  var sel=$('#cPhone'),h='';
+  BRANDS.forEach(function(b){
+    var items=P.filter(function(p){return p.brand===b[0]&&p.tier!=='basic'});
+    if(!items.length)return;
+    h+='<optgroup label="'+b[1]+'">'+items.map(function(p){return '<option value="'+p.id+'">'+p.name+'</option>'}).join('')+'</optgroup>';
+  });
+  sel.innerHTML=h;sel.value=String(byName('Galaxy S25 Ultra').id);
+  $('#cMonths').innerHTML=cMonths.map(function(m){return '<button data-m="'+m+'" class="'+(m===cm?'on':'')+'">'+m+' شهر</button>'}).join('');
+  fillSt();calc(true);
+})();
+function fillSt(){
+  var p=P[+$('#cPhone').value];
+  $('#cSt').innerHTML=p.sts.map(function(s,i){return '<option value="'+i+'">'+stLabel(s)+' - '+fmt(p.prices[i])+' ج.م</option>'}).join('');
+}
+function calc(first){
+  var p=P[+$('#cPhone').value];var pr=p.prices[+$('#cSt').value||0];
+  var dp=+$('#cDown').value/100;var m=monthly(pr,dp,cm);
+  $('#cDownV').textContent=Math.round(dp*100)+'%';
+  tween($('#rMonthly'),m,first);
+  $('#rPrice').textContent=fmt(pr)+' ج.م';
+  $('#rDown').textContent=fmt(pr*dp)+' ج.م';
+  $('#rTotal').textContent=fmt(pr*dp+m*cm)+' ج.م';
+}
+$('#cPhone').addEventListener('change',function(){fillSt();calc()});
+$('#cSt').addEventListener('change',function(){calc()});
+$('#cDown').addEventListener('input',function(){calc()});
+$('#cMonths').addEventListener('click',function(e){
+  var b=e.target.closest('[data-m]');if(!b)return;cm=+b.getAttribute('data-m');
+  $$('#cMonths button').forEach(function(x){x.classList.toggle('on',x===b)});calc();
+});
+
+/* ---------- contact links ---------- */
+var hello='مرحباً، أريد الاستفسار عن موبايل';
+$('#fab').href=waLink(hello);$('#footWa').href=waLink(hello);
+
+/* ---------- scroll: progress, parallax, sticky rotation ---------- */
+var show=$('#show'),rot=$('#rot'),stEls=$$('.st'),dotEls=$$('#showDots i'),hero=$('#heroStage'),bar=$('#bar');
+var lastStep=0,ticking=false;
+function onScroll(){
+  if(ticking)return;ticking=true;
+  requestAnimationFrame(function(){
+    ticking=false;
+    var y=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.transform='scaleX('+(h>0?Math.min(1,y/h):0)+')';
+    if(!reduce)hero.style.setProperty('--py',Math.min(y,700)*-0.06+'px');
+    var r=show.getBoundingClientRect(),total=show.offsetHeight-window.innerHeight;
+    var p=total>0?Math.max(0,Math.min(1,-r.top/total)):0;
+    if(!reduce)rot.style.setProperty('--p',p.toFixed(4));
+    var step=p<.3?0:(p<.7?1:2);
+    if(step!==lastStep||!rot.getAttribute('data-init')){
+      lastStep=step;rot.setAttribute('data-init','1');
+      stEls.forEach(function(x,i){x.classList.toggle('on',i===step)});
+      dotEls.forEach(function(x,i){x.classList.toggle('on',i===step)});
+    }
+  });
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',onScroll);
+onScroll();
+
+/* hero tilt */
+if(!reduce&&window.matchMedia&&matchMedia('(pointer:fine)').matches){
+  var heroSec=$('.hero');
+  heroSec.addEventListener('pointermove',function(e){
+    var r=heroSec.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    hero.style.setProperty('--ry',(x*9).toFixed(2)+'deg');
+    hero.style.setProperty('--rx',(-y*5).toFixed(2)+'deg');
+  });
+  heroSec.addEventListener('pointerleave',function(){hero.style.setProperty('--ry','0deg');hero.style.setProperty('--rx','0deg')});
+}
+
+/* reveal on scroll */
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  $$('.rv').forEach(function(el){io.observe(el)});
+}else{$$('.rv').forEach(function(el){el.classList.add('in')})}
+
+/* count-up for hero stats */
+if(!reduce){
+  $$('[data-count]').forEach(function(el){
+    var to=+el.textContent;el.textContent='0';var t0=performance.now()+500;
+    (function step(t){
+      if(t<t0){requestAnimationFrame(step);return}
+      var k=Math.min(1,(t-t0)/1300);k=1-Math.pow(1-k,3);
+      el.textContent=Math.round(to*k);
+      if(k<1)requestAnimationFrame(step);
+    })(performance.now());
+  });
+}
+})();
+</script>
+
+</body></html>
